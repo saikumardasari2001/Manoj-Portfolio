@@ -1,0 +1,137 @@
+<main class="dashboard">
+  <aside class="panel sidebar">
+    <img class="profile-photo" src="assets/profile-photo.png" alt="Manoj Kumar profile photo" />
+    <h1>{{ profile.name }}</h1>
+    <p class="headline">{{ profile.headline }}</p>
+    <div class="micro-tags">
+      <span>Data Engineering</span>
+      <span>AWS Cloud</span>
+      <span>ETL Automation</span>
+    </div>
+    <nav>
+      <a href="#overview">Dashboard</a>
+      <a href="#skills">Tech Stack Matrix</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Learning and Credentials</a>
+      <a href="#achievements">Key Wins</a>
+    </nav>
+  </aside>
+
+  <section class="content">
+    <section class="panel hero-strip">
+      <div>
+        <p class="hero-kicker">My Portfolio </p>
+        <h2>Hi, I'm Manoj Kumar</h2>
+        <p class="hero-subtitle">
+          I design AWS-powered ETL systems that make data reliable, scalable, and ready for business decisions.
+        </p>
+      </div>
+      <div class="hero-badges">
+        <span>3+ Years Experience</span>
+        <span>1TB+ Daily Processing</span>
+        <span>AWS Certified</span>
+      </div>
+      <div class="hero-actions">
+        <button type="button" class="btn-primary" (click)="toggleHeroContact()">
+          {{ showHeroContact ? 'Hide Contact' : "Let's Connect" }}
+        </button>
+        <a class="btn-secondary" [href]="profile.linkedinUrl" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      @if (!showHeroContact) {
+        <p class="hero-connect-hint">
+          <span class="hint-dot" aria-hidden="true"></span>
+          Click <strong>Let's Connect</strong> to reveal more.
+        </p>
+      }
+      @if (showHeroContact) {
+        <p class="hero-contact">
+          <a [href]="gmailComposeUrl" target="_blank" rel="noopener">
+            <span class="hero-contact-icon" aria-hidden="true">✉</span>
+            <span>{{ profile.email }}</span>
+          </a>
+          <span>|</span>
+          <a [href]="'tel:' + profile.phoneDial">
+            <span class="hero-contact-icon" aria-hidden="true">📞</span>
+            <span>{{ profile.phone }}</span>
+          </a>
+        </p>
+      }
+    </section>
+
+    <section id="overview" class="panel">
+      <h2>Dashboard</h2>
+      <p class="summary-text">{{ professionalSummary }}</p>
+      <div class="stat-grid">
+        @for (stat of highlights; track stat.label) {
+          <article class="stat-card">
+            <p class="stat-label">{{ stat.label }}</p>
+            <p class="stat-value">{{ stat.value }}</p>
+          </article>
+        }
+      </div>
+      <h3>Core Domains</h3>
+      <ul class="compact-list">
+        @for (domain of coreDomains; track domain) {
+          <li>{{ domain }}</li>
+        }
+      </ul>
+    </section>
+
+    <section id="skills" class="panel">
+      <h2>Tech Stack Matrix</h2>
+      <div class="skill-cards">
+        @for (group of skillGroups; track group.title) {
+          <article class="skill-card">
+            <h3>{{ group.title }}</h3>
+            <div class="skills-wrap">
+              @for (item of group.items; track item) {
+                <span class="pill">{{ item }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section id="experience" class="panel">
+      <h2>Experience </h2>
+      <article class="role">
+        <h3>Tata Consultancy Services</h3>
+        <p class="meta">System/Data Engineer | June 2023 - Present | Kolkata, West Bengal</p>
+        <ul class="timeline-list">
+          @for (item of experience; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </article>
+    </section>
+
+    <section id="education" class="panel split">
+      <article>
+        <h2>Academic Foundation</h2>
+        <p class="strong">Bachelor of Technology - Electrical and Electronics Engineering</p>
+        <p>Vaagdevi College of Engineering, Warangal, Telangana</p>
+        <p class="meta">2022</p>
+      </article>
+      <article>
+        <h2>Cloud Credentials</h2>
+        <ul>
+          @for (cert of certifications; track cert) {
+            <li>{{ cert }}</li>
+          }
+        </ul>
+      </article>
+    </section>
+
+    <section id="achievements" class="panel">
+      <h2>Key Wins and Recognition</h2>
+      <ul>
+        @for (achievement of achievements; track achievement) {
+          <li>{{ achievement }}</li>
+        }
+      </ul>
+    </section>
+
+    <p class="footer-note">Portfolio dashboard | {{ currentYear }}</p>
+  </section>
+</main>
